@@ -1,0 +1,6 @@
+The goal of self attention is to compute a context vector for each input element that combines information from all other input elements.
+The importance or contributon of each input element for computing the context vector is determined by attention weights.
+The purpose of a context vector is to create enriched representation of each element in the input sequence by incorporating information from all other elements from the input sequence.
+attention score(w) -> attention weights(alpha)
+Attention weights: Normalized attention score, to obtain attention weights that sum to 1. Done using softmax, as it provides a better approach at managing values and offer favourable gradient properties during training. Naive softmax approach may encounter numerical instability problems, such a soverflow or underflow, when dealing with large or small values. Thus, prefer PyTorch's implementation of softmax. 
+Why Dot products: One the dot product returns the scaled value by combining two vectors. Two the dot product is a measure of similarity as it quantifies how closely two vectors are aligned. Higher dot product quantifies a greater similarity between the vectors.
