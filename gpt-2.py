@@ -11,7 +11,7 @@ class GPTModel(nn.Module):
             *[DummyTransformerBlock(cfg)
             for _ in range(cfg["n_layers"])]
         )
-        self.final_norm = DummyLayerNorm(cfg["emb_dim"])
+        self.final_norm = LayerNorm(cfg["emb_dim"])
         self.out_head = nn.Linear(cfg["emb_dim"], cfg["vocab_size"], bias=False)
 
     def forward(self, x):
@@ -34,9 +34,29 @@ class DummyTransformerBlock(nn.Module):
         return x
     
 
-class DummyLayerNorm(nn.Module):
-    def __init__(self, normalized_shape, eps=1e-5):
+class LayerNorm(nn.Module):
+    def __init__(self, emb_dim):
+        super().__init__()
+        self.eps=1e-5 #epsilon
+        self.scale=nn.Parameters(torch.ones(emb_dim))
+        self.shift=nn.Parameters(torch.zeros(emb_dim))
+
+    def forward(self, x):
+        mean=x.mean(dim=-1, keepdim=True)
+        var=x.var(dim=-1, keepdim=True)
+        norm_x=(x-mean)/torch.sqrt(var+self.eps)
+        return self.scale * norm_x + self.shift
+    
+    
+class GELU(nn.module):
+    def __init__(self):
         super().__init__()
 
     def forward(self, x):
-        return x
+        return 0.5 * x *(1+torch.tanh(
+            torch.sqrt(torch.tensor(2.0/torch.pi)) *
+            (x + 0.044715 * torch.pow(x, 3))
+        ))
+    
+
+class 
