@@ -123,13 +123,3 @@ class MultiHeadAttention(nn.Module):
 
         context_vector = self.out_proj(context_vector)
         return context_vector
-
-
-
-
-
-
-
-
-
-
