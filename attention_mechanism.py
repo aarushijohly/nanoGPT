@@ -44,7 +44,7 @@ class CausalAttention(nn.Module):
         self.W_key = nn.Linear(d_in, d_out, bias=qkv_bias)
         self.W_value = nn.Linear(d_in, d_out, bias=qkv_bias)
         self.dropout = nn.Dropout(dropout)
-        self.register_buffer('mask', torch.triu(torch.ones(context_length, context_length)), diagonal=1)
+        self.register_buffer('mask', torch.triu(torch.ones(context_length, context_length), diagonal=1))
         # buffers are automatically moved to the appropriate device(CPU or GPU) along with our model, which will be relevant
         # when training our LLM. This means we don't need to maually ensure these tensors are on the same device as your model parameters,
         # avoiding the mismatch error.
@@ -88,7 +88,7 @@ class MultiHeadAttention(nn.Module):
         self.W_value = nn.Linear(d_in, d_out, bias=qkv_bias)
         self.out_proj = nn.Linear(d_out, d_out)
         self.dropout = nn.Dropout(dropout)
-        self.register_buffer("mask", torch.triu(torch.ones(context_length, context_length)), diagonal = 1)
+        self.register_buffer('mask', torch.triu(torch.ones(context_length, context_length), diagonal=1))
 
 
     # we initialize one laege weight matrix, only perform one matrix weight multiplication with inputs to obtain a matrix
