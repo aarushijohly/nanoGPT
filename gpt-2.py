@@ -1,6 +1,5 @@
 import torch
 import torch.nn as nn
-#import config
 from attention_mechanism import MultiHeadAttention
  
 
