@@ -42,6 +42,4 @@ class SimpleTokenizerV2:
         # Replace spaces before the specified punctuations
         text = re.sub(r'\s+([,.:;?!"()\'])', r'\1', text)
         return text
-    
 
-    
